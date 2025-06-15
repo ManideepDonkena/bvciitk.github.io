@@ -91,7 +91,7 @@ arrPresent.push({
     who1: "Management Trainee",
     who2: "Tata Steel",
     who3: "BTech, ME(2015-19)",
-    about: "Sachin Kumar Sahoo did his B-tech in department of Mechanical Engineering at IIT Kanpur from 2015-2019. He is now working as a Management Trainee at Tata Steel in R&D department. He came in Krishna Consciousness in the 2nd year of his undergraduate days ",
+    about: "Sachin Kumar Sahoo did his B-tech in department of Mechanical Engineering at IIT Kanpur from 2015-2019. He is now working as a Management Trainee at Tata Steel. He came in Krishna Consciousness in the 2nd year of his undergraduate days ",
     id: "",
     gradyr: 2019
 }, {
