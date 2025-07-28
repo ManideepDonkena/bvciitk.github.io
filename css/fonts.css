@@ -1,42 +1,316 @@
 /* ===================================================================
- * fonts.scss)
- *
+ * Enhanced Font Configuration
+ * Comprehensive font loading with optimizations and fallbacks
  * ------------------------------------------------------------------- */
- 
-/*
- * Libre Baskerville 
-================================================================================ */
-@font-face {
-  font-family: "librebaskerville-regular";
-  src: url("../fonts/librebaskerville/librebaskerville-regular-webfont.woff2") format("woff2"), url("../fonts/librebaskerville/librebaskerville-regular-webfont.woff") format("woff");
-  font-style: normal;
-  font-weight: normal;
-}
-@font-face {
-  font-family: "librebaskerville-italic";
-  src: url("../fonts/librebaskerville/librebaskerville-italic-webfont.woff2") format("woff2"), url("../fonts/librebaskerville/librebaskerville-italic-webfont.woff") format("woff");
-  font-style: normal;
-  font-weight: normal;
-}
-@font-face {
-  font-family: "librebaskerville-bold";
-  src: url("../fonts/librebaskerville/librebaskerville-bold-webfont.woff2") format("woff2"), url("../fonts/librebaskerville/librebaskerville-bold-webfont.woff") format("woff");
-  font-style: normal;
-  font-weight: normal;
+
+/* PERFORMANCE OPTIMIZATION: Remove Google Fonts @import for better loading */
+/* Replace with preload links in HTML for critical fonts */
+
+/* ===================================================================
+ * CSS Custom Properties for Font Management
+ * ------------------------------------------------------------------- */
+:root {
+  /* Primary Font Families with performance-optimized fallbacks */
+  --font-family-primary: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  --font-family-secondary: 'Merriweather', Georgia, 'Times New Roman', serif;
+  --font-family-accent: 'Libre Baskerville', Georgia, serif;
+  --font-family-mono: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Courier New', monospace;
+  
+  /* System font stack for critical text rendering */
+  --font-family-system: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  
+  /* Font Weights */
+  --font-weight-thin: 100;
+  --font-weight-extra-light: 200;
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semi-bold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extra-bold: 800;
+  --font-weight-black: 900;
+  
+  /* Font Sizes */
+  --font-size-xs: 0.75rem;    /* 12px */
+  --font-size-sm: 0.875rem;   /* 14px */
+  --font-size-base: 1rem;     /* 16px */
+  --font-size-lg: 1.125rem;   /* 18px */
+  --font-size-xl: 1.25rem;    /* 20px */
+  --font-size-2xl: 1.5rem;    /* 24px */
+  --font-size-3xl: 1.875rem;  /* 30px */
+  --font-size-4xl: 2.25rem;   /* 36px */
+  --font-size-5xl: 3rem;      /* 48px */
+  --font-size-6xl: 3.75rem;   /* 60px */
+  
+  /* Line Heights */
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.625;
+  --line-height-loose: 2;
 }
 
-/*
- * Montserrat
-================================================================================ */
+/* ===================================================================
+ * Critical Font Loading Optimization
+ * Load essential fonts first, defer others
+ * ------------------------------------------------------------------- */
+
+/* Critical fonts - preload these first */
 @font-face {
   font-family: "montserrat-regular";
-  src: url("../fonts/montserrat/montserrat-regular-webfont.woff2") format("woff2"), url("../fonts/montserrat/montserrat-regular-webfont.woff") format("woff");
+  src: url("../fonts/montserrat/montserrat-regular-webfont.woff2") format("woff2"), 
+       url("../fonts/montserrat/montserrat-regular-webfont.woff") format("woff");
   font-style: normal;
-  font-weight: normal;
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
+
 @font-face {
   font-family: "montserrat-bold";
-  src: url("../fonts/montserrat/montserrat-bold-webfont.woff2") format("woff2"), url("../fonts/montserrat/montserrat-bold-webfont.woff") format("woff");
+  src: url("../fonts/montserrat/montserrat-bold-webfont.woff2") format("woff2"), 
+       url("../fonts/montserrat/montserrat-bold-webfont.woff") format("woff");
   font-style: normal;
-  font-weight: normal;
+  font-weight: 700;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* ===================================================================
+ * Libre Baskerville Font Family - Optimized Loading
+ * ------------------------------------------------------------------- */
+@font-face {
+  font-family: "librebaskerville-regular";
+  src: url("../fonts/librebaskerville/librebaskerville-regular-webfont.woff2") format("woff2"), 
+       url("../fonts/librebaskerville/librebaskerville-regular-webfont.woff") format("woff");
+  font-style: normal;
+  font-weight: 400;
+  font-display: fallback;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "librebaskerville-italic";
+  src: url("../fonts/librebaskerville/librebaskerville-italic-webfont.woff2") format("woff2"), 
+       url("../fonts/librebaskerville/librebaskerville-italic-webfont.woff") format("woff");
+  font-style: italic;
+  font-weight: 400;
+  font-display: fallback;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "librebaskerville-bold";
+  src: url("../fonts/librebaskerville/librebaskerville-bold-webfont.woff2") format("woff2"), 
+       url("../fonts/librebaskerville/librebaskerville-bold-webfont.woff") format("woff");
+  font-style: normal;
+  font-weight: 700;
+  font-display: fallback;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* ===================================================================
+ * Non-critical Montserrat weights - Load with fallback
+ * ------------------------------------------------------------------- */
+@font-face {
+  font-family: "montserrat-light";
+  src: url("../fonts/montserrat/montserrat-light-webfont.woff2") format("woff2"), 
+       url("../fonts/montserrat/montserrat-light-webfont.woff") format("woff");
+  font-style: normal;
+  font-weight: 300;
+  font-display: fallback;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "montserrat-medium";
+  src: url("../fonts/montserrat/montserrat-medium-webfont.woff2") format("woff2"), 
+       url("../fonts/montserrat/montserrat-medium-webfont.woff") format("woff");
+  font-style: normal;
+  font-weight: 500;
+  font-display: fallback;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "montserrat-semi-bold";
+  src: url("../fonts/montserrat/montserrat-semi-bold-webfont.woff2") format("woff2"), 
+       url("../fonts/montserrat/montserrat-semi-bold-webfont.woff") format("woff");
+  font-style: normal;
+  font-weight: 600;
+  font-display: fallback;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Optional/Heavy fonts - Load last with optional display */
+@font-face {
+  font-family: "montserrat-extra-bold";
+  src: url("../fonts/montserrat/montserrat-extra-bold-webfont.woff2") format("woff2"), 
+       url("../fonts/montserrat/montserrat-extra-bold-webfont.woff") format("woff");
+  font-style: normal;
+  font-weight: 800;
+  font-display: optional;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "montserrat-black";
+  src: url("../fonts/montserrat/montserrat-black-webfont.woff2") format("woff2"), 
+       url("../fonts/montserrat/montserrat-black-webfont.woff") format("woff");
+  font-style: normal;
+  font-weight: 900;
+  font-display: optional;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* ===================================================================
+ * Merriweather Font Family - Optimized for Performance
+ * ------------------------------------------------------------------- */
+@font-face {
+  font-family: "merriweather-regular";
+  src: url("../fonts/merriweather/merriweather-regular-webfont.woff2") format("woff2"), 
+       url("../fonts/merriweather/merriweather-regular-webfont.woff") format("woff");
+  font-style: normal;
+  font-weight: 400;
+  font-display: fallback;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "merriweather-light";
+  src: url("../fonts/merriweather/merriweather-light-webfont.woff2") format("woff2"), 
+       url("../fonts/merriweather/merriweather-light-webfont.woff") format("woff");
+  font-style: normal;
+  font-weight: 300;
+  font-display: fallback;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "merriweather-bold";
+  src: url("../fonts/merriweather/merriweather-bold-webfont.woff2") format("woff2"), 
+       url("../fonts/merriweather/merriweather-bold-webfont.woff") format("woff");
+  font-style: normal;
+  font-weight: 700;
+  font-display: fallback;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* ===================================================================
+ * Raleway Font Family - Optional Enhancement Fonts
+ * ------------------------------------------------------------------- */
+@font-face {
+  font-family: "raleway-regular";
+  src: url("../fonts/raleway/raleway-regular-webfont.woff2") format("woff2"), 
+       url("../fonts/raleway/raleway-regular-webfont.woff") format("woff");
+  font-style: normal;
+  font-weight: 400;
+  font-display: optional;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "raleway-thin";
+  src: url("../fonts/raleway/raleway-thin-webfont.woff2") format("woff2"), 
+       url("../fonts/raleway/raleway-thin-webfont.woff") format("woff");
+  font-style: normal;
+  font-weight: 100;
+  font-display: optional;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "raleway-light";
+  src: url("../fonts/raleway/raleway-light-webfont.woff2") format("woff2"), 
+       url("../fonts/raleway/raleway-light-webfont.woff") format("woff");
+  font-style: normal;
+  font-weight: 300;
+  font-display: optional;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "raleway-semi-bold";
+  src: url("../fonts/raleway/raleway-semi-bold-webfont.woff2") format("woff2"), 
+       url("../fonts/raleway/raleway-semi-bold-webfont.woff") format("woff");
+  font-style: normal;
+  font-weight: 600;
+  font-display: optional;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* ===================================================================
+ * Performance-First Base Styles
+ * Use system fonts for immediate rendering
+ * ------------------------------------------------------------------- */
+
+/* Critical text uses system fonts first, then custom fonts */
+body {
+  font-family: var(--font-family-system);
+  font-display: swap;
+  text-rendering: optimizeSpeed; /* Prioritize speed over quality initially */
+}
+
+/* Progressive enhancement for custom fonts */
+.fonts-loaded body {
+  font-family: var(--font-family-primary);
+  text-rendering: optimizeLegibility;
+}
+
+/* ===================================================================
+ * Performance Optimizations
+ * ------------------------------------------------------------------- */
+
+/* Font loading states for progressive enhancement */
+.font-loading-primary {
+  font-family: var(--font-family-system);
+}
+
+.fonts-loaded .font-loading-primary {
+  font-family: var(--font-family-primary);
+}
+
+.font-loading-secondary {
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+.fonts-loaded .font-loading-secondary {
+  font-family: var(--font-family-secondary);
+}
+
+/* Critical rendering optimizations */
+.critical-text {
+  font-family: var(--font-family-system);
+  font-display: block; /* Ensure text is always visible */
+}
+
+/* Enhanced text rendering for loaded fonts */
+.fonts-loaded .optimize-text {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "kern" 1, "liga" 1;
+  font-kerning: normal;
+}
+
+/* Fallback for browsers without font-display support */
+@supports not (font-display: swap) {
+  @font-face {
+    font-family: "montserrat-regular-fallback";
+    src: url("../fonts/montserrat/montserrat-regular-webfont.woff2") format("woff2");
+    font-style: normal;
+    font-weight: 400;
+  }
+  
+  .font-fallback-support {
+    font-family: "montserrat-regular-fallback", var(--font-family-system);
+  }
+}
+
+/* Preload hint for critical fonts */
+.preload-fonts::before {
+  content: '';
+  font-family: "montserrat-regular", "montserrat-bold", "librebaskerville-regular";
+  position: absolute;
+  left: -9999px;
+  visibility: hidden;
 }

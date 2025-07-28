@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="Bhaktivedanta Club IIT Kanpur (BVC) aims to bridges the gap between science and spirituality through a scientific presentation of ancient Vedic Scriptures. We are here to promote holistic living amongst the student community through cleanliness habits, nutritious diets, regular mantra meditation sessions, seminars on Bhagavad Gita, selfless service and a life centered around Lord Krishna">
+    <meta name="keywords" content="Bhaktivedanta Club IIT Kanpur, Janmashtami, Lord Krishna, BVC IITK">
+    
+    <link rel="shortcut icon" type="image/x-icon" href="img/logo.png">
+    <title>Janmashtami 2025 - BVC IITK</title>
+    
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Loading Screen -->
+    <div class="loader" id="loader">
+        <!-- <div class="loader-mandala">
+            <div class="mandala-ring"></div>
+            <div class="mandala-ring"></div>
+            <div class="mandala-ring"></div>
+        </div> -->
+        <!-- <img src="img/krishna.png" alt="Krishna" class="loader-krishna"> -->
+        <div class="loader-text">
+            <div class="devanagari">हरे कृष्ण हरे कृष्ण कृष्ण कृष्ण हरे हरे <br> 
+                हरे राम हरे राम राम राम हरे हरे</div>
+            <div class="iast">Hare Kṛṣṇa Hare Kṛṣṇa Kṛṣṇa Kṛṣṇa Hare Hare <br>
+                Hare Rāma Hare Rāma Rāma Rāma Hare Hare</div>
+        </div>
+        <div class="loader-subtext">Loading...</div>
+    </div>
+
+    <!-- Music Player -->
+    <div class="music-player" id="musicPlayer">
+        <button class="music-toggle" id="musicToggle">
+            <span class="music-icon">🎵</span>
+            <span class="music-text">Play Flute</span>
+        </button>
+        <audio id="bgMusic" loop autoplay muted>
+            <source src="audio/krishna_flute.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+    <div class="modal popup-modal hidden" id="tshirtPopup">
+        <div class="modal-content popup-content">
+            <button class="modal-close" id="closePopup">&times;</button>
+            <h2 class="popup-title">Book T-shirt for Janmashtami</h2>
+            <div class="tshirt-images">
+                <img src="img/Tshirt.jpeg" alt="Yellow T-shirt">
+                <!-- <img src="img/tshirt-blue.png" alt="Blue T-shirt"> -->
+            </div>
+            <a href="https://forms.gle/cr1SYA2jiCCPxgyk8" target="_blank" class="btn btn--primary popup-btn">Order Now</a>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="img/logo.png" alt="BVC IITK Logo">
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="#home" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="#events" class="nav-link">Events</a></li>
+                <li class="nav-item"><a href="#schedule" class="nav-link">Schedule</a></li>
+                <li class="nav-item"><a href="#gratitude" class="nav-link">Gratitude</a></li>
+                <li class="nav-item"><a href="#celebrations" class="nav-link">Celebrations</a></li>
+                <li class="nav-item"><a href="#highlights" class="nav-link">Highlights</a></li>
+                <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-bg">
+            <div class="mandala-bg"></div>
+            <div class="floating-elements">
+                <div class="floating-lotus"></div>
+                <div class="floating-feather"></div>
+                <div class="floating-flute"></div>
+            </div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-text reveal">
+                <h1 class="hero-title">Why do We Celebrate Janmashtami?</h1>
+                <p class="hero-description">
+                    Janmashtami is a grand celebration to commemorate the appearance of Lord Krishna, 
+                    who is believed to be the Supreme Lord or the Lord of the Lords. It is the celebration 
+                    of joy, love, and divinity. The story of Krishna's appearance reminds us through Kansa's 
+                    actions that ego and pride are the major faults in human beings which can only doom them.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section id="events" class="events-section">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2 class="section-title">Events</h2>
+                <div class="decorative-element">
+                    <img src="img/Garland.jpg" alt="Garland" class="garland-img">
+                </div>
+                <p class="section-subtitle">Every choice we make can be a celebration of the world we want.</p>
+            </div>
+            
+            <div class="events-grid">
+                <div class="event-card reveal">
+                    <div class="card-image">
+                        <img src="img/Cultural.jpg" alt="Cultural Activities">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Cultural Activities</h3>
+                        <p class="card-description">
+                            To increase the intensity of the celebration of Janmashtami, we will organize a 
+                            multitude of cultural events, such as drama, classical music performances, 
+                            shloka recitations, and different dance forms.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="event-card reveal">
+                    <div class="card-image">
+                        <img src="img/Interschool.jpg" alt="Interschool Competitions">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Interschool Competitions</h3>
+                        <p class="card-description">
+                            We have also organised a whole class of exciting and fun competitions for various 
+                            primary and high school students. There was a lot of enthusiastic participation 
+                            in competitions like Shloka recition, Vedic Quiz, Painting and many more.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="event-card reveal">
+                    <div class="card-image">
+                        <img src="img/Kirtan.jpg" alt="Kirtan">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Kirtan</h3>
+                        <p class="card-description">
+                            We have ecstatic kirtans designed to help create internal peace, confidence and joy. 
+                            Kirtan chanting calms restless minds, promotes clarity of focus and helps dissolve 
+                            anger and anxiety.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="event-card reveal">
+                    <div class="card-image">
+                        <img src="img/Poster.jpg" alt="Poster Presentation">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Poster Presentation</h3>
+                        <p class="card-description">
+                            As a means to present Bhagawat Gita's perennial philosophy in a concise and visual 
+                            manner, we have arranged poster presentations that demonstrate the wisdom of ancient 
+                            India more effectively.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="event-card reveal">
+                    <div class="card-image">
+                        <img src="img/Prasadam.jpg" alt="Prasadam Distribution">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Prasadam Distribution</h3>
+                        <p class="card-description">
+                            Lord Kapila explains in the third canto of Srimad Bhagavatam one of the most important 
+                            principles of deity worship is to offer bhoga to the Lord and distribute it as Prasadam 
+                            to all the souls.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="event-card reveal">
+                    <div class="card-image">
+                        <img src="img/Lord Balarama.jpg" alt="Balaram Jayanthi">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Balaram Jayanthi</h3>
+                        <p class="card-description">
+                            Balarama Jayanti marks the birth of our dear Lord Balarama, the elder brother of Lord 
+                            Krishna. The festival is also known as Baladeva Chhath in the Braja region.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Schedule Section -->
+    <!-- <section id="schedule" class="schedule-section">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2 class="section-title">Janmashtami Schedule 2025</h2>
+                <p class="section-subtitle">Join us in this divine celebration of Lord Krishna's birth</p>
+            </div>
+            
+            <div class="schedule-timeline">
+                <div class="timeline-item reveal">
+                    <div class="timeline-time">5:00 AM</div>
+                    <div class="timeline-content">
+                        <h3>Mangal Aarti</h3>
+                        <p>Morning prayers and awakening ceremony for Lord Krishna</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item reveal">
+                    <div class="timeline-time">6:00 AM</div>
+                    <div class="timeline-content">
+                        <h3>Shloka Recitation</h3>
+                        <p>Recitation of sacred verses from Bhagavad Gita and Srimad Bhagavatam</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item reveal">
+                    <div class="timeline-time">8:00 AM</div>
+                    <div class="timeline-content">
+                        <h3>Cultural Programs Begin</h3>
+                        <p>Traditional dance performances, drama, and musical presentations</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item reveal">
+                    <div class="timeline-time">10:00 AM</div>
+                    <div class="timeline-content">
+                        <h3>Interschool Competitions</h3>
+                        <p>Vedic Quiz, Painting competition, and Shloka competitions for students</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item reveal">
+                    <div class="timeline-time">12:00 PM</div>
+                    <div class="timeline-content">
+                        <h3>Krishna Janmashtami Abhishek</h3>
+                        <p>Sacred bathing ceremony of Lord Krishna's deity with milk, honey, and flowers</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item reveal">
+                    <div class="timeline-time">2:00 PM</div>
+                    <div class="timeline-content">
+                        <h3>Prasadam Distribution</h3>
+                        <p>Distribution of sacred food offerings blessed by Lord Krishna</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item reveal">
+                    <div class="timeline-time">4:00 PM</div>
+                    <div class="timeline-content">
+                        <h3>Poster Presentations</h3>
+                        <p>Exhibition of Bhagavad Gita philosophy through visual presentations</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item reveal">
+                    <div class="timeline-time">6:00 PM</div>
+                    <div class="timeline-content">
+                        <h3>Kirtan & Bhajan</h3>
+                        <p>Devotional singing and chanting of Lord Krishna's holy names</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item reveal">
+                    <div class="timeline-time">8:00 PM</div>
+                    <div class="timeline-content">
+                        <h3>Krishna Leela Enactment</h3>
+                        <p>Dramatic presentation of Lord Krishna's childhood pastimes</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item reveal">
+                    <div class="timeline-time">11:59 PM</div>
+                    <div class="timeline-content">
+                        <h3>Midnight Celebration</h3>
+                        <p>Grand celebration at the auspicious time of Lord Krishna's birth</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+    <!-- Gratitude Section -->
+    <section id="gratitude" class="gratitude-section">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2 class="section-title">Special Gratitude</h2>
+                <p class="sanskrit-verse">तद्विद्धि प्रणिपातेन परिप्रश्नेन सेवया |<br>
+                उपदेक्ष्यन्ति ते ज्ञानं ज्ञानिनस्तत्त्वदर्शिन: || BG 4.34 ||</p>
+            </div>
+            
+            <div class="gratitude-grid">
+                <div class="gratitude-card reveal">
+                    <div class="card-frame">
+                        <div class="card-image-container">
+                            <img src="img/lakshmidhar_behera.jpeg" alt="HG Lila Purushottam Das">
+                            <div class="card-overlay">
+                                <a href="https://home.iitk.ac.in/~lbehera/" target="_blank" class="overlay-link">See more</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-info">
+                        <h3 class="card-name">HG Lila Purushottam Das</h3>
+                        <p class="card-position">Director, IIT Mandi</p>
+                    </div>
+                </div>
+
+                <div class="gratitude-card reveal">
+                    <div class="card-frame">
+                        <div class="card-image-container">
+                            <img src="img/suvendu_sir.jpeg" alt="HG Suvendu Samanta">
+                            <div class="card-overlay">
+                                <a href="https://home.iitk.ac.in/~suvendus/" target="_blank" class="overlay-link">See more</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-info">
+                        <h3 class="card-name">HG Suvendu Samanta</h3>
+                        <p class="card-position">Asst. Professor, IIT Kanpur</p>
+                    </div>
+                </div>
+
+                <div class="gratitude-card reveal">
+                    <div class="card-frame">
+                        <div class="card-image-container">
+                            <img src="img/Prof_Gururaj.jpg" alt="HG Gururaj M Vishwanath">
+                            <div class="card-overlay">
+                                <a href="https://home.iitk.ac.in/~gururajmv/Home.html" target="_blank" class="overlay-link">See more</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-info">
+                        <h3 class="card-name">HG Gururaj M Vishwanath</h3>
+                        <p class="card-position">Asst. Professor, IIT Kanpur</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Celebrations Section -->
+    <section id="celebrations" class="celebrations-section">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2 class="section-title">Celebrations</h2>
+                <p class="section-subtitle">A peek at some of our exotic past celebrations</p>
+            </div>
+            
+            <div class="video-carousel">
+                <div class="carousel-container">
+                    <div class="video-slide active">
+                        <iframe src="https://youtube.com/embed/97gKegzWSMU" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-slide">
+                        <iframe src="https://youtube.com/embed/-efunLUXlxU" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-slide">
+                        <iframe src="https://youtube.com/embed/e-ZANWldN7c" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-slide">
+                        <iframe src="https://youtube.com/embed/9yLO_WplXNA" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-slide">
+                        <iframe src="https://youtube.com/embed/gOmehhTAGqo" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-slide">
+                        <iframe src="https://youtube.com/embed/_TXsChb6XgY" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-slide">
+                        <iframe src="https://youtube.com/embed/oZMSYgC8mrs" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-slide">
+                        <iframe src="https://youtube.com/embed/eI22Yi4omgE" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+                
+                <button class="carousel-btn prev-btn" id="prevBtn">‹</button>
+                <button class="carousel-btn next-btn" id="nextBtn">›</button>
+                
+                <div class="carousel-dots">
+                    <button class="dot active" data-slide="0"></button>
+                    <button class="dot" data-slide="1"></button>
+                    <button class="dot" data-slide="2"></button>
+                    <button class="dot" data-slide="3"></button>
+                    <button class="dot" data-slide="4"></button>
+                    <button class="dot" data-slide="5"></button>
+                    <button class="dot" data-slide="6"></button>
+                    <button class="dot" data-slide="7"></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Highlights Section -->
+    <section id="highlights" class="highlights-section">
+        <video class="bg-video" autoplay muted loop>
+            <source src="img/Highlights/water.mp4" type="video/mp4">
+        </video>
+        <div class="container">
+            <div class="section-header reveal">
+                <h2 class="section-title">Janmashtami Highlights</h2>
+                <p class="section-subtitle">A glimpse of past janmashtami euphoria</p>
+            </div>
+            
+            <div class="photo-gallery">
+                <div class="gallery-column">
+                    <img src="img/Highlights/IMG25.jpg" class="gallery-item reveal" alt="Highlight">
+                    <img src="img/Highlights/IMG1.jpg" class="gallery-item reveal" alt="Highlight">
+                    <img src="img/Highlights/IMG2.jpg" class="gallery-item reveal" alt="Highlight">
+                    <img src="img/Highlights/IMG3.jpg" class="gallery-item reveal" alt="Highlight">
+                    <img src="img/Highlights/IMG4.jpg" class="gallery-item reveal" alt="Highlight">
+                    <img src="img/Highlights/IMG5.jpg" class="gallery-item reveal" alt="Highlight">
+                    <img src="img/Highlights/2.png" class="gallery-item reveal" alt="Highlight">
+                    <img src="img/Highlights/IMG22.jpg" class="gallery-item reveal" alt="Highlight">
+                </div>
+                <div class="gallery-column">
+                    <img src="img/Highlights/IMG24.jpeg" class="gallery-item reveal" alt="Highlight">
+                    <img src="img/Highlights/IMG7.jpg" class="gallery-item reveal" alt="Highlight">
+                    <img src="img/Highlights/IMG17.jpg" class="gallery-item reveal" alt="Highlight">
+                    <img src="img/Highlights/IMG18.jpg" class="gallery-item reveal" alt="Highlight">
+                    <img src="img/Highlights/IMG19.jpg" class="gallery-item reveal" alt="Highlight">
+                    <img src="img/Highlights/IMG20.jpg" class="gallery-item reveal" alt="Highlight">
+                    <img src="img/Highlights/1.png" class="gallery-item reveal" alt="Highlight">
+                    <img src="img/Highlights/IMG26.jpg" class="gallery-item reveal" alt="Highlight">
+                    <img src="img/Highlights/IMG16.jpg" class="gallery-item reveal" alt="Highlight">
+                </div>
+                <div class="gallery-column">
+                    <img src="img/Highlights/IMG9.jpg" class="gallery-item reveal" alt="Highlight">
+                    <img src="img/Highlights/IMG10.jpg" class="gallery-item reveal" alt="Highlight">
+                    <img src="img/Highlights/IMG11.jpg" class="gallery-item reveal" alt="Highlight">
+                    <img src="img/Highlights/IMG12.jpg" class="gallery-item reveal" alt="Highlight">
+                    <img src="img/Highlights/IMG21.jpg" class="gallery-item reveal" alt="Highlight">
+                    <img src="img/Highlights/6.png" class="gallery-item reveal" alt="Highlight">
+                    <img src="img/Highlights/IMG23.jpg" class="gallery-item reveal" alt="Highlight">
+                    <img src="img/Highlights/5.png" class="gallery-item reveal" alt="Highlight">
+                </div>
+                <div class="gallery-column">
+                    <img src="img/Highlights/IMG13.jpg" class="gallery-item reveal" alt="Highlight">
+                    <img src="img/Highlights/IMG14.jpg" class="gallery-item reveal" alt="Highlight">
+                    <img src="img/Highlights/IMG15.jpg" class="gallery-item reveal" alt="Highlight">
+                    <img src="img/Highlights/7.png" class="gallery-item reveal" alt="Highlight">
+                    <img src="img/Highlights/IMG6.jpg" class="gallery-item reveal" alt="Highlight">
+                    <img src="img/Highlights/IMG8.jpg" class="gallery-item reveal" alt="Highlight">
+                    <img src="img/Highlights/3.png" class="gallery-item reveal" alt="Highlight">
+                    <img src="img/Highlights/4.png" class="gallery-item reveal" alt="Highlight">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Image Modal -->
+    <div class="modal image-modal hidden" id="imageModal">
+        <span class="modal-close" id="modalClose">&times;</span>
+        <img class="modal-image" id="modalImage" alt="Gallery Image">
+    </div>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="bvc-logo">
+                        <a href="https://bvciitk.com/" target="_blank">
+                            <img src="img/BVC.png" alt="BVC IITK" id="bvcImg">
+                        </a>
+                    </div>
+                    <p class="bvc-description">
+                        BVC IITKANPUR promotes holistic living amongst the student community through cleanliness habits,
+                        nutritious diets, regular mantra meditation sessions, seminars on Bhagavad Gita, selfless service 
+                        and a life centered around Lord Krishna.
+                    </p>
+                    
+                    <div class="contact-details">
+                        <h3>Contact Info:</h3>
+                        <div class="contact-item">
+                            <img src="img/Gmail.png" alt="Email" class="contact-icon">
+                            <span>bhaktivedanta.club.iitk12@gmail.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <img src="img/phone.png" alt="Phone" class="contact-icon">
+                            <span>+91 63941-85667</span>
+                        </div>
+                    </div>
+                    
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/janmashtamiIITK" target="_blank">
+                            <img src="img/facebook.png" alt="Facebook" class="social-icon">
+                        </a>
+                        <a href="https://twitter.com/club_iit" target="_blank">
+                            <img src="img/twitter.png" alt="Twitter" class="social-icon">
+                        </a>
+                        <a href="http://instagram.com/bvciitk" target="_blank">
+                            <img src="img/instagram.png" alt="Instagram" class="social-icon">
+                        </a>
+                        <a href="https://www.youtube.com/user/Bhaktivedantaclubiit/playlists?view=50&sort=dd&shelf_id=6" target="_blank">
+                            <img src="img/youtube.png" alt="YouTube" class="social-icon">
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="contact-map">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3570.0944772031826!2d80.23666497409646!3d26.517085776982977!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399c37b096d4ff0f%3A0xd6e26ef002612917!2sBhaktivedanta%20Club%20IIT%20Kanpur!5e0!3m2!1sen!2sin!4v1691485300052!5m2!1sen!2sin"
+                        width="100%" 
+                        height="300" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                    <p class="address">Address: House no, 664, Lane 36, Kalyanpur, Kanpur, Uttar Pradesh 208016</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 BVC IITK. All rights reserved!</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
