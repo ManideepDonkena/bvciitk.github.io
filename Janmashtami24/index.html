@@ -22,14 +22,14 @@
             <div class="mandala-ring"></div>
             <div class="mandala-ring"></div>
         </div> -->
-        <!-- <img src="img/krishna.png" alt="Krishna" class="loader-krishna"> -->
+        <img src="img/krishna.png" alt="Krishna" class="loader-krishna">
         <div class="loader-text">
             <div class="devanagari">हरे कृष्ण हरे कृष्ण कृष्ण कृष्ण हरे हरे <br> 
                 हरे राम हरे राम राम राम हरे हरे</div>
             <div class="iast">Hare Kṛṣṇa Hare Kṛṣṇa Kṛṣṇa Kṛṣṇa Hare Hare <br>
                 Hare Rāma Hare Rāma Rāma Rāma Hare Hare</div>
         </div>
-        <div class="loader-subtext">Loading...</div>
+        <!-- <div class="loader-subtext">Loading...</div> -->
     </div>
 
     <!-- Music Player -->
@@ -45,15 +45,27 @@
     </div>
     <div class="modal popup-modal hidden" id="tshirtPopup">
         <div class="modal-content popup-content">
-            <button class="modal-close" id="closePopup">&times;</button>
+            <button class="modal-close" id="closePopup_1">&times;</button>
             <h2 class="popup-title">Book T-shirt for Janmashtami</h2>
             <div class="tshirt-images">
                 <img src="img/Tshirt.jpeg" alt="Yellow T-shirt">
                 <!-- <img src="img/tshirt-blue.png" alt="Blue T-shirt"> -->
             </div>
+            <a href="https://forms.gle/jsRVfgJ1Yx5gMCEL7" target="_blank" class="btn btn--primary popup-btn">Order Now</a>
+        </div>
+    </div>
+    <div class="modal popup-modal hidden" id="VolunteerPopup">
+        <div class="modal-content popup-content">
+            <button class="modal-close" id="closePopup">&times;</button>
+            <h2 class="popup-title">Call For Volunteers</h2>
+            <div class="tshirt-images">
+                <img src="img/Participants.jpeg" alt="Participants T-shirt">
+                <!-- <img src="img/tshirt-blue.png" alt="Blue T-shirt"> -->
+            </div>
             <a href="https://forms.gle/cr1SYA2jiCCPxgyk8" target="_blank" class="btn btn--primary popup-btn">Order Now</a>
         </div>
     </div>
+
 
     <!-- Navigation -->
     <nav id="navbar" class="navbar">
@@ -61,7 +73,10 @@
             <div class="nav-logo">
                 <img src="img/logo.png" alt="BVC IITK Logo">
             </div>
-            <ul class="nav-menu">
+            <button class="nav-toggle" id="navToggle">
+                <span class="nav-toggle-icon"></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
                 <li class="nav-item"><a href="#home" class="nav-link">Home</a></li>
                 <li class="nav-item"><a href="#events" class="nav-link">Events</a></li>
                 <li class="nav-item"><a href="#schedule" class="nav-link">Schedule</a></li>
@@ -322,7 +337,7 @@
                     </div>
                     <div class="card-info">
                         <h3 class="card-name">HG Suvendu Samanta</h3>
-                        <p class="card-position">Asst. Professor, IIT Kanpur</p>
+                        <p class="card-position">Associate Professor, IIT Kanpur</p>
                     </div>
                 </div>
 

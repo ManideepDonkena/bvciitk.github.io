@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initVideoCarousel();
     initImageModal();
     initTshirtPopup();
+    initVolunteerPopup();
     initSmoothScroll();
     initCardHoverEffects();
 });
@@ -74,7 +75,7 @@ function initMusicPlayer() {
     musicToggle.addEventListener('click', function() {
         if (bgMusic.paused) {
             bgMusic.muted = false;
-            bgMusic.play();
+            bgMusic.play().catch(e => console.error("Playback failed:", e));
         } else {
             bgMusic.pause();
         }
@@ -88,6 +89,15 @@ function initMusicPlayer() {
 function initNavigation() {
     const navbar = document.getElementById('navbar');
     const navLinks = document.querySelectorAll('.nav-link');
+    const navToggle = document.getElementById('navToggle');
+    const navMenu = document.getElementById('navMenu');
+
+    if (navToggle && navMenu) {
+        navToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('is-active');
+            navToggle.classList.toggle('is-active');
+        });
+    }
     
     // Navbar scroll effect
     window.addEventListener('scroll', function() {
@@ -95,6 +105,12 @@ function initNavigation() {
             navbar.style.background = 'rgba(30, 58, 138, 0.98)';
         } else {
             navbar.style.background = 'rgba(30, 58, 138, 0.95)';
+        }
+
+        // Close mobile nav on scroll
+        if (navMenu.classList.contains('is-active')) {
+            navMenu.classList.remove('is-active');
+            navToggle.classList.remove('is-active');
         }
     });
     
@@ -327,6 +343,12 @@ function initTshirtPopup() {
         if (popup) {
             popup.classList.add('hidden');
             document.body.style.overflow = 'auto';
+            // Show volunteer popup after this one is closed
+            const volunteerPopup = document.getElementById('VolunteerPopup');
+            if (volunteerPopup) {
+                volunteerPopup.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
         }
     }
     
@@ -350,6 +372,38 @@ function initTshirtPopup() {
         }
     });
 }
+
+// Volunteer Popup
+function initVolunteerPopup() {
+    const popup = document.getElementById('VolunteerPopup');
+    const closeBtn = document.getElementById('closeVolunteerPopup');
+
+    function closePopup() {
+        if (popup) {
+            popup.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+    }
+
+    if (closeBtn) {
+        closeBtn.addEventListener('click', closePopup);
+    }
+
+    if (popup) {
+        popup.addEventListener('click', function(e) {
+            if (e.target === popup) {
+                closePopup();
+            }
+        });
+    }
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && popup && !popup.classList.contains('hidden')) {
+            closePopup();
+        }
+    });
+}
+
 
 // Additional Enhancements
 function animateFloatingElements() {
