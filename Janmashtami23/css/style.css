@@ -109,7 +109,7 @@ html {
 #logo img {
     height: 89px;
     margin: 3px 6px;
-    background-color: white;
+    /* background-color: white; */
     border-radius: 20px;
 }
 
@@ -435,7 +435,7 @@ html {
 
 #highlights #myVideo {
     position: absolute;
-    right: 0;
+    right: -30%;
     bottom: 0;
     min-width: 100%;
     min-height: 100%;
