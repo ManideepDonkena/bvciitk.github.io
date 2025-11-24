@@ -920,25 +920,25 @@ function removeAllChildNodes(element) {
     }
 }
 
-function filterApp(filter=0){
+function filterApp(filter = 0) {
     removeAllChildNodes(m_contents_present);
     var paras = document.getElementsByClassName('new_row');
-    while(paras.length > 0) {
+    while (paras.length > 0) {
         paras[0].parentNode.removeChild(paras[0]);
     }
 
-    if(filter==0 || filter.target.value == "all"){
+    if (filter == 0 || filter.target.value == "all") {
         for (var i = 0; i < arrPresent.length; i++) {
             arrPresent[i].id = "sp" + i.toString();
             addspeakerNew(i);
         }
     }
-    else{
-        var fil =  parseInt(filter.target.value, 10);
+    else {
+        var fil = parseInt(filter.target.value, 10);
         // alert(fil);
         var k = 0;
         for (var i = 0; i < arrPresent.length; i++) {
-            if(fil==arrPresent[i].gradyr){
+            if (fil == arrPresent[i].gradyr) {
                 arrPresent[i].id = "sp" + i.toString();
                 addspeakerNew(k, i);
                 k++;
@@ -1062,9 +1062,9 @@ function addspeakerNew(x, i = x) {
 }
 
 // Smoothscrolling 
-var ssSmoothScroll = function() {
+var ssSmoothScroll = function () {
 
-    $('.smoothscroll').on('click', function(e) {
+    $('.smoothscroll').on('click', function (e) {
         var target = this.hash,
             $target = $(target);
 
@@ -1073,7 +1073,7 @@ var ssSmoothScroll = function() {
 
         $('html, body').stop().animate({
             'scrollTop': $target.offset().top
-        }, 800, 'swing').promise().done(function() {
+        }, 800, 'swing').promise().done(function () {
 
             // check if menu is open
             if ($('body').hasClass('menu-is-open')) {

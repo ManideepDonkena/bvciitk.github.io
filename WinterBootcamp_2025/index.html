@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Yogah Karmasu Kausalam - Winter Bootcamp</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Inter:wght@300;400;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap"
+        rel="stylesheet">
+
+    <!-- Babel for in-browser JSX transpilation -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'vedic-blue': '#1e3a8a',
+                        'vedic-gold': '#d97706',
+                        'vedic-gold-light': '#fcd34d',
+                        'deep-navy': '#0f172a',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Merriweather', 'serif'],
+                        display: ['Cinzel', 'serif'],
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                        'spin': 'spin 1s linear infinite',
+                        'pulse': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #f8fafc;
+        }
+
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            /* IE and Edge */
+            scrollbar-width: none;
+            /* Firefox */
+        }
+    </style>
+    <script type="importmap">
+{
+  "imports": {
+    "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
+    "react": "https://esm.sh/react@18.2.0",
+    "lucide-react": "https://esm.sh/lucide-react@0.344.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/"
+  }
+}
+</script>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel" data-type="module">
+        import React, { useState, useEffect, useRef } from 'react';
+        import ReactDOM from 'react-dom/client';
+        import {
+            Menu, X, Rocket, ArrowRight, Calendar, MapPin,
+            Play, Loader2, Film, Sparkles, BookOpen, Book,
+            Music, Users, Terminal, Cpu, Video, CheckCircle,
+            Brain, HelpCircle, BarChart2, Check, Send,
+            ChevronDown, ChevronUp, RefreshCcw, Mail, Phone, ExternalLink,
+            Code, Star, Heart
+        } from 'lucide-react';
+
+        // --- TYPES ---
+        const SectionId = {
+            HOME: 'home',
+            PHILOSOPHY: 'philosophy',
+            CURRICULUM: 'curriculum',
+            PROJECTS: 'projects',
+            REGISTER: 'register'
+        };
+
+        // --- COMPONENTS ---
+
+        // 1. ScrollProgress
+        const ScrollProgress = () => {
+            const [width, setWidth] = useState(0);
+
+            const handleScroll = () => {
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                setWidth(scrolled);
+            };
+
+            useEffect(() => {
+                window.addEventListener('scroll', handleScroll);
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
+
+            return (
+                <div className="fixed top-0 left-0 h-1 bg-vedic-gold z-50 transition-all duration-150 ease-out" style={{ width: `${width}%` }} />
+            );
+        };
+
+        // 2. Navbar
+        const Navbar = () => {
+            const [isOpen, setIsOpen] = useState(false);
+            const [isScrolled, setIsScrolled] = useState(false);
+
+            useEffect(() => {
+                const handleScroll = () => {
+                    setIsScrolled(window.scrollY > 50);
+                };
+                window.addEventListener('scroll', handleScroll);
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
+
+            const scrollToSection = (id) => {
+                setIsOpen(false);
+                const element = document.getElementById(id);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                }
+            };
+
+            const navLinks = [
+                { label: 'Philosophy', id: SectionId.PHILOSOPHY },
+                { label: 'Curriculum', id: SectionId.CURRICULUM },
+                { label: 'Project', id: SectionId.PROJECTS },
+            ];
+
+            return (
+                <nav
+                    className={`fixed w-full z-40 transition-all duration-300 ${isScrolled
+                        ? 'bg-deep-navy/95 backdrop-blur-md shadow-lg py-2'
+                        : 'bg-transparent py-4'
+                        }`}
+                >
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="flex justify-between items-center h-16">
+                            {/* Logo */}
+                            <div className="flex-shrink-0 flex items-center cursor-pointer" onClick={() => scrollToSection(SectionId.HOME)}>
+                                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-vedic-gold to-yellow-300 flex items-center justify-center mr-3 shadow-md">
+                                    <span className="text-deep-navy font-bold font-display text-xl">B</span>
+                                </div>
+                                <div className="flex flex-col text-white">
+                                    <span className="font-display font-bold leading-none tracking-wide">Bhaktivedanta</span>
+                                    <span className="text-xs uppercase tracking-widest text-vedic-gold font-semibold">Club, IITK</span>
+                                </div>
+                            </div>
+
+                            {/* Desktop Menu */}
+                            <div className="hidden md:flex items-center space-x-8">
+                                {navLinks.map((link) => (
+                                    <button
+                                        key={link.id}
+                                        onClick={() => scrollToSection(link.id)}
+                                        className={`text-sm font-medium uppercase tracking-wider transition-colors duration-200 hover:text-vedic-gold ${isScrolled ? 'text-gray-200' : 'text-gray-100'
+                                            }`}
+                                    >
+                                        {link.label}
+                                    </button>
+                                ))}
+                                <button
+                                    onClick={() => scrollToSection(SectionId.REGISTER)}
+                                    className="px-6 py-2 bg-vedic-gold hover:bg-yellow-500 text-deep-navy font-bold rounded-full transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                                >
+                                    Apply Now
+                                </button>
+                            </div>
+
+                            {/* Mobile menu button */}
+                            <div className="md:hidden flex items-center">
+                                <button
+                                    onClick={() => setIsOpen(!isOpen)}
+                                    className="p-2 rounded-md text-white hover:text-vedic-gold focus:outline-none"
+                                >
+                                    {isOpen ? <X size={24} /> : <Menu size={24} />}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Mobile Menu */}
+                    <div
+                        className={`md:hidden absolute top-full left-0 w-full bg-deep-navy shadow-xl transition-all duration-300 ease-in-out overflow-hidden ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                            }`}
+                    >
+                        <div className="px-4 pt-2 pb-6 space-y-2">
+                            {navLinks.map((link) => (
+                                <button
+                                    key={link.id}
+                                    onClick={() => scrollToSection(link.id)}
+                                    className="block w-full text-left px-3 py-3 rounded-md text-base font-medium text-white hover:text-vedic-gold hover:bg-white/5 transition-colors"
+                                >
+                                    {link.label}
+                                </button>
+                            ))}
+                            <button
+                                onClick={() => scrollToSection(SectionId.REGISTER)}
+                                className="w-full text-center mt-4 px-6 py-3 bg-vedic-gold text-deep-navy font-bold rounded-md"
+                            >
+                                Apply Now
+                            </button>
+                        </div>
+                    </div>
+                </nav>
+            );
+        };
+
+        // 3. Hero
+        const Hero = () => {
+            const scrollToRegister = () => {
+                const element = document.getElementById(SectionId.REGISTER);
+                element?.scrollIntoView({ behavior: 'smooth' });
+            };
+
+            return (
+                <section
+                    id={SectionId.HOME}
+                    className="relative min-h-screen flex items-center justify-center overflow-hidden bg-deep-navy"
+                >
+                    {/* Background Gradients & Effects */}
+                    <div className="absolute inset-0 z-0">
+                        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-vedic-blue via-deep-navy to-black opacity-90"></div>
+                        <div className="absolute -top-[20%] -right-[10%] w-[600px] h-[600px] rounded-full bg-vedic-gold/10 blur-[100px]"></div>
+                        <div className="absolute top-[60%] -left-[10%] w-[500px] h-[500px] rounded-full bg-blue-500/10 blur-[100px]"></div>
+                        <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+                    </div>
+
+                    <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center">
+
+                        {/* Title */}
+                        <div className="mb-4 animate-fade-in-up">
+                            <span className="inline-block py-1 px-3 rounded-full bg-white/10 border border-white/20 text-vedic-gold text-sm font-semibold tracking-widest uppercase mb-6 backdrop-blur-sm">
+                                Bhaktivedanta Club • IIT Kanpur
+                            </span>
+                        </div>
+
+                        <h1 className="font-display font-bold text-5xl md:text-7xl lg:text-8xl text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-gray-400 tracking-tight leading-tight mb-2 drop-shadow-2xl">
+                            YOGAḤ KARMASU
+                        </h1>
+                        <h1 className="font-display font-bold text-5xl md:text-7xl lg:text-8xl text-vedic-gold tracking-tight leading-tight mb-8 drop-shadow-[0_0_15px_rgba(217,119,6,0.5)]">
+                            KAUŚALAM
+                        </h1>
+
+                        <p className="text-xl md:text-2xl text-gray-300 max-w-2xl font-serif italic mb-2">
+                            "Achieving Tech Excellence through Inner Elevation"
+                        </p>
+
+                        <div className="mb-10 p-4 bg-white/5 backdrop-blur-md rounded-lg border border-white/10 max-w-xl">
+                            <p className="text-lg font-semibold text-white">
+                                Exclusive Winter Bootcamp for Y25 Students
+                            </p>
+                        </div>
+
+                        <div className="flex flex-wrap justify-center gap-6 mb-12 text-gray-300">
+                            <div className="flex items-center gap-2">
+                                <Calendar className="w-5 h-5 text-vedic-gold" />
+                                <span className="font-medium">Nov 28 – Dec 20</span>
+                            </div>
+                            <div className="w-px h-6 bg-gray-600 hidden md:block"></div>
+                            <div className="flex items-center gap-2">
+                                <MapPin className="w-5 h-5 text-vedic-gold" />
+                                <span className="font-medium">IIT Kanpur</span>
+                            </div>
+                        </div>
+
+                        <button
+                            onClick={scrollToRegister}
+                            className="group relative inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-vedic-gold to-amber-600 rounded-full text-white font-bold text-lg tracking-wide shadow-2xl hover:shadow-amber-500/40 transition-all duration-300 transform hover:-translate-y-1 overflow-hidden"
+                        >
+                            <span className="relative z-10">Start Your Journey</span>
+                            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform relative z-10" />
+                            <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                        </button>
+
+                    </div>
+
+                    <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-f8fafc to-transparent z-10"></div>
+                </section>
+            );
+        };
+
+        // 4. BootcampTrailer (with API Key logic)
+        const BootcampTrailer = () => {
+            const [isLoading, setIsLoading] = useState(false);
+            const [videoUri, setVideoUri] = useState(null);
+            const [status, setStatus] = useState("");
+
+            const generateTrailer = async () => {
+                try {
+                    // Check for window.aistudio key selection
+                    if (window.aistudio && window.aistudio.hasSelectedApiKey && !(await window.aistudio.hasSelectedApiKey())) {
+                        await window.aistudio.openSelectKey();
+                    }
+
+                    setIsLoading(true);
+                    setStatus("Initializing Veo Director...");
+
+                    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+
+                    setStatus("Dreaming up the trailer...");
+
+                    let operation = await ai.models.generateVideos({
+                        model: 'veo-3.1-fast-generate-preview',
+                        prompt: 'Cinematic trailer for a spiritual tech bootcamp at IIT Kanpur. Split screen showing students coding with glowing holographic AI interfaces and students chanting mantras in a serene golden temple. Theme: Deep Blue and Gold. Text overlay "YOGAH KARMASU KAUSALAM". Inspiring, futuristic yet traditional, 4k resolution, photorealistic.',
+                        config: {
+                            numberOfVideos: 1,
+                            resolution: '720p',
+                            aspectRatio: '16:9'
+                        }
+                    });
+
+                    setStatus("Rendering scenes (this takes a moment)...");
+
+                    while (!operation.done) {
+                        await new Promise(resolve => setTimeout(resolve, 5000));
+                        operation = await ai.operations.getVideosOperation({ operation: operation });
+                        setStatus("Polishing pixels...");
+                    }
+
+                    if (operation.response?.generatedVideos?.[0]?.video?.uri) {
+                        const uri = operation.response.generatedVideos[0].video.uri;
+                        setVideoUri(`${uri}&key=${process.env.API_KEY}`);
+                    } else {
+                        setStatus("Generation failed. Please try again.");
+                        setTimeout(() => setStatus(""), 3000);
+                    }
+
+                } catch (e) {
+                    console.error(e);
+                    const errorMessage = e.message || e.error?.message || JSON.stringify(e);
+
+                    if (errorMessage.includes("Requested entity was not found") || errorMessage.includes("404")) {
+                        setStatus("Access issue. Please select a valid paid API key.");
+                        if (window.aistudio && window.aistudio.openSelectKey) {
+                            await window.aistudio.openSelectKey();
+                        }
+                    } else {
+                        setStatus("Error generating video. Please try again.");
+                    }
+                    setTimeout(() => setStatus(""), 4000);
+                } finally {
+                    setIsLoading(false);
+                }
+            };
+
+            return (
+                <section className="py-16 bg-black relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-b from-deep-navy to-black opacity-80"></div>
+                    <div className="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-20"></div>
+
+                    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                        <div className="text-center mb-10">
+                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-vedic-gold/20 border border-vedic-gold/30 text-vedic-gold text-xs font-bold uppercase tracking-widest mb-4">
+                                <Sparkles className="w-3 h-3" />
+                                Powered by Google Veo
+                            </div>
+                            <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-4">
+                                Experience the Vision
+                            </h2>
+                            <p className="text-gray-400 font-serif italic">
+                                Generate an AI-crafted trailer visualizing the harmony of Tech & Spirit.
+                            </p>
+                        </div>
+
+                        <div className="relative aspect-video bg-gray-900 rounded-2xl overflow-hidden shadow-2xl border border-white/10 group">
+                            {videoUri ? (
+                                <video
+                                    src={videoUri}
+                                    controls
+                                    autoPlay
+                                    loop
+                                    className="w-full h-full object-cover"
+                                />
+                            ) : (
+                                <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-gray-800 to-gray-900 p-6 text-center">
+                                    {isLoading ? (
+                                        <div className="flex flex-col items-center">
+                                            <div className="relative">
+                                                <div className="w-16 h-16 border-4 border-vedic-gold/30 border-t-vedic-gold rounded-full animate-spin mb-4"></div>
+                                                <div className="absolute inset-0 flex items-center justify-center">
+                                                    <Loader2 className="w-6 h-6 text-vedic-gold animate-spin" />
+                                                </div>
+                                            </div>
+                                            <p className="text-vedic-gold font-mono animate-pulse">{status}</p>
+                                        </div>
+                                    ) : (
+                                        <>
+                                            <div className="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center mb-6 backdrop-blur-sm group-hover:scale-110 transition-transform duration-300">
+                                                <Film className="w-10 h-10 text-vedic-gold" />
+                                            </div>
+                                            <h3 className="text-xl font-bold text-white mb-2">Bootcamp Cinematic Trailer</h3>
+                                            <p className="text-gray-400 mb-8 max-w-md mx-auto">
+                                                Use Gemini's state-of-the-art video generation model to create a unique preview of what awaits you.
+                                            </p>
+                                            <button
+                                                onClick={generateTrailer}
+                                                className="px-8 py-3 bg-gradient-to-r from-vedic-gold to-amber-600 text-white font-bold rounded-full hover:shadow-lg hover:shadow-amber-500/20 transition-all transform hover:-translate-y-1 flex items-center gap-2"
+                                            >
+                                                <Play className="w-5 h-5" fill="currentColor" />
+                                                Generate Trailer
+                                            </button>
+                                        </>
+                                    )}
+                                </div>
+                            )}
+                        </div>
+
+                        {!videoUri && !isLoading && (
+                            <div className="text-center mt-4">
+                                <p className="text-xs text-gray-500">
+                                    *Uses <strong>veo-3.1-fast-generate-preview</strong>. Generation may take a minute.
+                                </p>
+                                <p className="text-xs text-gray-600 mt-1">
+                                    Requires a paid Google Cloud Project API Key. <a href="https://ai.google.dev/gemini-api/docs/billing" target="_blank" rel="noreferrer" className="text-vedic-gold hover:underline">Learn more</a>
+                                </p>
+                            </div>
+                        )}
+                    </div>
+                </section>
+            );
+        };
+
+        // 5. Philosophy
+        const Philosophy = () => {
+            return (
+                <section id={SectionId.PHILOSOPHY} className="py-20 bg-slate-50 relative">
+                    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="text-center mb-16">
+                            <h2 className="text-3xl md:text-4xl font-display font-bold text-deep-navy mb-4">
+                                The Philosophy
+                            </h2>
+                            <div className="w-20 h-1 bg-vedic-gold mx-auto mb-8"></div>
+                            <p className="text-lg text-gray-600 leading-relaxed font-serif max-w-3xl mx-auto">
+                                True skill lies not just in the execution of work, but in the consciousness with which it is performed.
+                                We believe that modern technological prowess, when grounded in timeless spiritual wisdom,
+                                creates leaders who innovate with purpose and clarity.
+                            </p>
+                        </div>
+
+                        <div className="grid md:grid-cols-2 gap-8">
+                            <div className="bg-white p-8 rounded-xl shadow-lg border-t-4 border-vedic-blue group hover:-translate-y-1 transition-transform duration-300">
+                                <div className="w-12 h-12 bg-vedic-blue/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-vedic-blue group-hover:text-white transition-colors">
+                                    <Sparkles className="w-6 h-6 text-vedic-blue group-hover:text-white" />
+                                </div>
+                                <h3 className="text-xl font-bold text-deep-navy mb-3">Inner Harmony</h3>
+                                <p className="text-gray-600">
+                                    Cultivating a calm, focused mind through meditative practices allows for deeper problem-solving capabilities and resilience in the fast-paced tech world.
+                                </p>
+                            </div>
+
+                            <div className="bg-white p-8 rounded-xl shadow-lg border-t-4 border-vedic-gold group hover:-translate-y-1 transition-transform duration-300">
+                                <div className="w-12 h-12 bg-vedic-gold/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-vedic-gold group-hover:text-white transition-colors">
+                                    <BookOpen className="w-6 h-6 text-vedic-gold group-hover:text-white" />
+                                </div>
+                                <h3 className="text-xl font-bold text-deep-navy mb-3">Outer Excellence</h3>
+                                <p className="text-gray-600">
+                                    Applying one's talents in the service of a higher cause transforms mundane labor into yoga. We strive for excellence in code as an offering of our best potential.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        // 6. CurriculumSplit
+        const CurriculumSplit = () => {
+            return (
+                <section id={SectionId.CURRICULUM} className="py-24 bg-white">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="text-center mb-16">
+                            <span className="text-vedic-blue font-bold tracking-wider uppercase text-sm">Two Tracks, One Goal</span>
+                            <h2 className="text-4xl md:text-5xl font-display font-bold text-deep-navy mt-2">
+                                Harmonized Curriculum
+                            </h2>
+                        </div>
+
+                        <div className="flex flex-col lg:flex-row relative">
+
+                            <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-vedic-gold to-transparent -translate-x-1/2 z-10">
+                                <div className="sticky top-1/2 -translate-y-1/2 w-10 h-10 bg-white border-2 border-vedic-gold rounded-full flex items-center justify-center shadow-lg text-vedic-gold font-bold text-lg z-20">
+                                    &
+                                </div>
+                            </div>
+
+                            {/* Left Panel */}
+                            <div className="flex-1 lg:pr-12 pb-12 lg:pb-0 border-b lg:border-b-0 lg:border-r border-gray-100 relative">
+                                <div className="bg-gradient-to-br from-vedic-blue to-deep-navy text-white p-8 rounded-2xl shadow-xl mb-8 transform transition hover:scale-[1.01]">
+                                    <h3 className="text-3xl font-display font-bold mb-2">INNER ELEVATION</h3>
+                                    <p className="text-blue-200 font-serif italic">Spiritual Enrichment & Mental Clarity</p>
+                                </div>
+
+                                <div className="space-y-8 pl-4">
+                                    <div className="flex gap-4">
+                                        <div className="flex-shrink-0">
+                                            <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-vedic-blue">
+                                                <Book className="w-6 h-6" />
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <h4 className="text-xl font-bold text-deep-navy mb-2">Deep Reading Circles</h4>
+                                            <p className="text-gray-600">
+                                                Interactive sessions dissecting wisdom from the <strong>Bhagavad Gītā</strong>, <strong>Śrīmad Bhāgavatam</strong>, and works of Śrīla Prabhupāda. Understand the science of the self.
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex gap-4">
+                                        <div className="flex-shrink-0">
+                                            <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-vedic-blue">
+                                                <Music className="w-6 h-6" />
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <h4 className="text-xl font-bold text-deep-navy mb-2">Meditative Chanting</h4>
+                                            <p className="text-gray-600">
+                                                Guided mantra meditation sessions designed to bring focus, alleviate stress, and foster a deep devotional connection.
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex gap-4">
+                                        <div className="flex-shrink-0">
+                                            <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-vedic-blue">
+                                                <Users className="w-6 h-6" />
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <h4 className="text-xl font-bold text-deep-navy mb-2">Alumni Interactions</h4>
+                                            <p className="text-gray-600">
+                                                Exclusive conversations with IITK alumni who are successfully balancing high-performance corporate careers with serious spiritual practice.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Right Panel */}
+                            <div className="flex-1 lg:pl-12 pt-12 lg:pt-0">
+                                <div className="bg-gradient-to-br from-amber-500 to-vedic-gold text-white p-8 rounded-2xl shadow-xl mb-8 transform transition hover:scale-[1.01]">
+                                    <h3 className="text-3xl font-display font-bold mb-2">OUTER EXCELLENCE</h3>
+                                    <p className="text-amber-100 font-serif italic">Coding in Krishna Consciousness</p>
+                                </div>
+
+                                <div className="space-y-8 pl-4">
+                                    <div className="flex gap-4">
+                                        <div className="flex-shrink-0">
+                                            <div className="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center text-amber-700">
+                                                <Terminal className="w-6 h-6" />
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <h4 className="text-xl font-bold text-deep-navy mb-2">AI/ML Foundations</h4>
+                                            <p className="text-gray-600">
+                                                Master Python basics, essential libraries (Pandas, NumPy), Machine Learning fundamentals, and Exploratory Data Analysis (EDA).
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex gap-4">
+                                        <div className="flex-shrink-0">
+                                            <div className="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center text-amber-700">
+                                                <Cpu className="w-6 h-6" />
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <h4 className="text-xl font-bold text-deep-navy mb-2">GenAI & Prompt Engineering</h4>
+                                            <p className="text-gray-600">
+                                                Dive into the cutting edge. Understand Large Language Models (LLMs), prompt engineering strategies, and generative workflows.
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex gap-4">
+                                        <div className="flex-shrink-0">
+                                            <div className="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center text-amber-700">
+                                                <Video className="w-6 h-6" />
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <h4 className="text-xl font-bold text-deep-navy mb-2">Unique Capstone Project</h4>
+                                            <p className="text-gray-600">
+                                                Create a short AI-generated video depicting the life of <strong>Śrī Raghunāth Dās Goswāmī</strong>. Combine storytelling with diffusion models.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        // 7. InteractiveLearning
+        const QUIZ_DATA = {
+            aiml: {
+                title: "AI/ML Foundations",
+                questions: [
+                    {
+                        id: 1,
+                        question: "Which Python library is primarily used for data manipulation and analysis?",
+                        options: ["NumPy", "Pandas", "Matplotlib", "Seaborn"],
+                        correct: 1
+                    },
+                    {
+                        id: 2,
+                        question: "In Machine Learning, what is the purpose of splitting data into 'Train' and 'Test' sets?",
+                        options: ["To increase data size", "To train faster", "To evaluate model performance on unseen data", "To fix missing values"],
+                        correct: 2
+                    },
+                    {
+                        id: 3,
+                        question: "Which type of learning uses labeled datasets?",
+                        options: ["Supervised Learning", "Unsupervised Learning", "Reinforcement Learning", "Self-supervised Learning"],
+                        correct: 0
+                    }
+                ]
+            },
+            genai: {
+                title: "GenAI & Prompt Engineering",
+                questions: [
+                    {
+                        id: 1,
+                        question: "Which parameter primarily controls the 'randomness' or 'creativity' of an LLM's output?",
+                        options: ["Max Tokens", "Top-K", "Temperature", "Stop Sequences"],
+                        correct: 2
+                    },
+                    {
+                        id: 2,
+                        question: "What is 'Chain of Thought' prompting?",
+                        options: ["Repeating the prompt multiple times", "Asking the model to explain its reasoning step-by-step", "Connecting multiple models together", "Using only one word prompts"],
+                        correct: 1
+                    },
+                    {
+                        id: 3,
+                        question: "What is a 'Hallucination' in the context of AI?",
+                        options: ["The model crashing", "The model generating confident but factually incorrect information", "The model refusing to answer", "The model generating images instead of text"],
+                        correct: 1
+                    }
+                ]
+            },
+            gita: {
+                title: "Bhagavad Gītā Wisdom",
+                questions: [
+                    {
+                        id: 1,
+                        question: "What is the meaning of 'Yogaḥ Karmasu Kauśalam' as per the Bhagavad Gītā?",
+                        options: ["Physical exercise", "Renunciation of all work", "Skill in action", "Silent meditation"],
+                        correct: 2
+                    },
+                    {
+                        id: 2,
+                        question: "According to the Gītā, what is the nature of the soul (Atma)?",
+                        options: ["Temporary", "Indestructible & Eternal", "Made of chemicals", "Evolving with time"],
+                        correct: 1
+                    },
+                    {
+                        id: 3,
+                        question: "Which mode of nature (Guna) is conducive for knowledge and clarity?",
+                        options: ["Sattva (Goodness)", "Rajas (Passion)", "Tamas (Ignorance)", "Nirguna (Transcendental)"],
+                        correct: 0
+                    }
+                ]
+            }
+        };
+
+        const FAQS = [
+            {
+                q: "What is the difference between Zero-shot and Few-shot prompting?",
+                a: "Zero-shot prompting means providing the model with a task without any examples. Few-shot prompting involves providing a few examples (input-output pairs) in the prompt context to guide the model's behavior and style."
+            },
+            {
+                q: "How can I reduce hallucinations in my prompts?",
+                a: "You can ask the model to cite sources, say 'I don't know' if it lacks information, or provide a specific context text for it to reference (RAG pattern). Lowering the temperature also helps reduce randomness."
+            },
+            {
+                q: "Does prompt length affect performance?",
+                a: "Yes. While LLMs have large context windows, extremely long prompts can sometimes dilute instruction adherence. Concise, structured, and clear instructions often yield better results."
+            }
+        ];
+
+        const QuizCard = ({ topic, data }) => {
+            const [currentQ, setCurrentQ] = useState(0);
+            const [score, setScore] = useState(0);
+            const [showResult, setShowResult] = useState(false);
+            const [selectedOption, setSelectedOption] = useState(null);
+            const [isAnswered, setIsAnswered] = useState(false);
+
+            // Reset quiz when topic changes
+            useEffect(() => {
+                resetQuiz();
+            }, [topic]);
+
+            const handleOptionClick = (idx) => {
+                if (isAnswered) return;
+                setSelectedOption(idx);
+                setIsAnswered(true);
+                if (idx === data.questions[currentQ].correct) {
+                    setScore(score + 1);
+                }
+            };
+
+            const nextQuestion = () => {
+                if (currentQ < data.questions.length - 1) {
+                    setCurrentQ(currentQ + 1);
+                    setSelectedOption(null);
+                    setIsAnswered(false);
+                } else {
+                    setShowResult(true);
+                }
+            };
+
+            const resetQuiz = () => {
+                setCurrentQ(0);
+                setScore(0);
+                setShowResult(false);
+                setSelectedOption(null);
+                setIsAnswered(false);
+            };
+
+            if (showResult) {
+                return (
+                    <div className="bg-white p-8 rounded-xl shadow-lg text-center h-full flex flex-col items-center justify-center min-h-[300px]">
+                        <h3 className="text-2xl font-bold text-deep-navy mb-4">Quiz Complete!</h3>
+                        <div className="text-6xl font-bold text-vedic-gold mb-4">
+                            {Math.round((score / data.questions.length) * 100)}%
+                        </div>
+                        <p className="text-gray-600 mb-6">
+                            You scored {score} out of {data.questions.length}
+                        </p>
+                        <button
+                            onClick={resetQuiz}
+                            className="flex items-center px-6 py-2 bg-vedic-blue text-white rounded-full hover:bg-deep-navy transition-colors"
+                        >
+                            <RefreshCcw className="w-4 h-4 mr-2" /> Retry Quiz
+                        </button>
+                    </div>
+                );
+            }
+
+            const question = data.questions[currentQ];
+
+            return (
+                <div className="bg-white p-6 md:p-8 rounded-xl shadow-lg border border-gray-100 h-full flex flex-col">
+                    <div className="flex justify-between items-center mb-6">
+                        <h3 className="font-bold text-lg text-deep-navy">{data.title}</h3>
+                        <span className="text-sm text-gray-400 font-mono">Q{currentQ + 1}/{data.questions.length}</span>
+                    </div>
+
+                    <p className="text-xl font-serif text-gray-800 mb-8 flex-grow">{question.question}</p>
+
+                    <div className="space-y-3 mb-8">
+                        {question.options.map((opt, idx) => {
+                            let btnClass = "w-full text-left p-4 rounded-lg border transition-all duration-200 flex justify-between items-center ";
+
+                            if (isAnswered) {
+                                if (idx === question.correct) btnClass += "bg-green-50 border-green-500 text-green-800";
+                                else if (idx === selectedOption) btnClass += "bg-red-50 border-red-500 text-red-800";
+                                else btnClass += "bg-gray-50 border-gray-200 opacity-50";
+                            } else {
+                                btnClass += "bg-white border-gray-200 hover:border-vedic-gold hover:bg-amber-50";
+                            }
+
+                            return (
+                                <button
+                                    key={idx}
+                                    onClick={() => handleOptionClick(idx)}
+                                    disabled={isAnswered}
+                                    className={btnClass}
+                                >
+                                    <span>{opt}</span>
+                                    {isAnswered && idx === question.correct && <Check className="w-5 h-5 text-green-600" />}
+                                    {isAnswered && idx === selectedOption && idx !== question.correct && <X className="w-5 h-5 text-red-600" />}
+                                </button>
+                            );
+                        })}
+                    </div>
+
+                    {isAnswered && (
+                        <div className="flex justify-end animate-fade-in">
+                            <button
+                                onClick={nextQuestion}
+                                className="px-6 py-2 bg-deep-navy text-white rounded-lg hover:bg-vedic-blue transition-colors font-semibold"
+                            >
+                                {currentQ < data.questions.length - 1 ? "Next Question" : "View Results"}
+                            </button>
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        const PollComponent = () => {
+            const [voted, setVoted] = useState(false);
+            const [selected, setSelected] = useState(null);
+
+            const results = {
+                "reading": 35,
+                "chanting": 42,
+                "alumni": 23
+            };
+
+            return (
+                <div className="bg-white p-8 rounded-xl shadow-lg border-t-4 border-vedic-gold h-full">
+                    <h3 className="text-xl font-bold text-deep-navy mb-2">Community Pulse</h3>
+                    <p className="text-gray-600 mb-6 text-sm">Which "Inner Elevation" session are you most excited about?</p>
+
+                    {!voted ? (
+                        <div className="space-y-4">
+                            {[
+                                { id: "reading", label: "Deep Reading Circles" },
+                                { id: "chanting", label: "Meditative Chanting" },
+                                { id: "alumni", label: "Alumni Interactions" }
+                            ].map((opt) => (
+                                <div
+                                    key={opt.id}
+                                    onClick={() => setSelected(opt.id)}
+                                    className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${selected === opt.id ? 'border-vedic-gold bg-amber-50' : 'border-gray-100 hover:border-gray-300'}`}
+                                >
+                                    <div className="flex items-center">
+                                        <div className={`w-5 h-5 rounded-full border-2 mr-3 flex items-center justify-center ${selected === opt.id ? 'border-vedic-gold' : 'border-gray-300'}`}>
+                                            {selected === opt.id && <div className="w-2.5 h-2.5 bg-vedic-gold rounded-full" />}
+                                        </div>
+                                        <span className="font-medium text-gray-700">{opt.label}</span>
+                                    </div>
+                                </div>
+                            ))}
+
+                            <button
+                                onClick={() => selected && setVoted(true)}
+                                disabled={!selected}
+                                className={`w-full py-3 rounded-lg font-bold mt-4 transition-colors ${selected ? 'bg-vedic-gold text-white hover:bg-amber-600' : 'bg-gray-200 text-gray-400 cursor-not-allowed'}`}
+                            >
+                                Submit Vote
+                            </button>
+                        </div>
+                    ) : (
+                        <div className="space-y-6 pt-2">
+                            {[
+                                { id: "reading", label: "Deep Reading Circles" },
+                                { id: "chanting", label: "Meditative Chanting" },
+                                { id: "alumni", label: "Alumni Interactions" }
+                            ].map((opt) => (
+                                <div key={opt.id}>
+                                    <div className="flex justify-between text-sm mb-1">
+                                        <span className={`font-medium ${selected === opt.id ? 'text-vedic-gold' : 'text-gray-600'}`}>
+                                            {opt.label}
+                                        </span>
+                                        <span className="font-bold text-gray-800">{results[opt.id]}%</span>
+                                    </div>
+                                    <div className="w-full bg-gray-100 rounded-full h-2.5 overflow-hidden">
+                                        <div
+                                            className={`h-2.5 rounded-full transition-all duration-1000 ${selected === opt.id ? 'bg-vedic-gold' : 'bg-gray-400'}`}
+                                            style={{ width: `${results[opt.id]}%` }}
+                                        />
+                                    </div>
+                                </div>
+                            ))}
+                            <div className="p-4 bg-blue-50 rounded-lg text-center">
+                                <p className="text-vedic-blue font-medium text-sm">Thanks for voting! Chant and be happy.</p>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        const QAComponent = () => {
+            const [activeIndex, setActiveIndex] = useState(null);
+            const [question, setQuestion] = useState("");
+            const [submitted, setSubmitted] = useState(false);
+
+            const toggleAccordion = (index) => {
+                setActiveIndex(activeIndex === index ? null : index);
+            };
+
+            const handleSubmit = (e) => {
+                e.preventDefault();
+                if (question.trim()) {
+                    setSubmitted(true);
+                    setTimeout(() => {
+                        setSubmitted(false);
+                        setQuestion("");
+                    }, 3000);
+                }
+            };
+
+            return (
+                <div className="bg-white rounded-xl shadow-lg overflow-hidden h-full flex flex-col">
+                    <div className="p-6 bg-deep-navy text-white">
+                        <h3 className="text-xl font-bold flex items-center gap-2">
+                            <HelpCircle className="w-5 h-5 text-vedic-gold" />
+                            Prompt Engineering Q&A
+                        </h3>
+                        <p className="text-blue-200 text-sm mt-1">Common questions from past bootcamps</p>
+                    </div>
+
+                    <div className="flex-grow overflow-y-auto p-6 space-y-4">
+                        {FAQS.map((faq, idx) => (
+                            <div key={idx} className="border border-gray-200 rounded-lg overflow-hidden">
+                                <button
+                                    onClick={() => toggleAccordion(idx)}
+                                    className="w-full text-left p-4 flex justify-between items-center hover:bg-gray-50 transition-colors"
+                                >
+                                    <span className="font-semibold text-deep-navy text-sm md:text-base">{faq.q}</span>
+                                    {activeIndex === idx ? <ChevronUp className="w-4 h-4 text-gray-500" /> : <ChevronDown className="w-4 h-4 text-gray-500" />}
+                                </button>
+                                <div
+                                    className={`bg-slate-50 text-gray-600 text-sm transition-all duration-300 ease-in-out px-4 ${activeIndex === idx ? 'max-h-40 py-4 opacity-100' : 'max-h-0 py-0 opacity-0'}`}
+                                >
+                                    {faq.a}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="p-4 bg-gray-50 border-t border-gray-200">
+                        {submitted ? (
+                            <div className="bg-green-100 text-green-800 p-3 rounded-lg text-center text-sm font-medium flex items-center justify-center gap-2">
+                                <CheckCircle className="w-4 h-4" /> Question submitted successfully!
+                            </div>
+                        ) : (
+                            <form onSubmit={handleSubmit} className="relative">
+                                <input
+                                    type="text"
+                                    value={question}
+                                    onChange={(e) => setQuestion(e.target.value)}
+                                    placeholder="Ask a question about prompts..."
+                                    className="w-full pl-4 pr-12 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-vedic-gold focus:border-transparent text-sm"
+                                />
+                                <button
+                                    type="submit"
+                                    className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 bg-deep-navy text-white rounded-md hover:bg-vedic-blue transition-colors"
+                                >
+                                    <Send className="w-4 h-4" />
+                                </button>
+                            </form>
+                        )}
+                    </div>
+                </div>
+            );
+        };
+
+        const InteractiveLearning = () => {
+            const [activeTab, setActiveTab] = useState('quiz');
+            const [activeQuizTopic, setActiveQuizTopic] = useState('aiml');
+
+            return (
+                <section className="py-20 bg-slate-100">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="text-center mb-12">
+                            <span className="text-vedic-blue font-bold tracking-wider uppercase text-sm">Engage & Learn</span>
+                            <h2 className="text-3xl md:text-4xl font-display font-bold text-deep-navy mt-2">
+                                Interactive Learning Hub
+                            </h2>
+                        </div>
+
+                        {/* Navigation Tabs */}
+                        <div className="flex justify-center mb-8">
+                            <div className="inline-flex bg-white p-1 rounded-xl shadow-sm border border-gray-200 overflow-x-auto">
+                                <button
+                                    onClick={() => setActiveTab('quiz')}
+                                    className={`flex items-center px-6 py-2.5 rounded-lg text-sm font-bold transition-all whitespace-nowrap ${activeTab === 'quiz' ? 'bg-vedic-gold text-white shadow-md' : 'text-gray-600 hover:bg-gray-50'}`}
+                                >
+                                    <Brain className="w-4 h-4 mr-2" /> Test Knowledge
+                                </button>
+                                <button
+                                    onClick={() => setActiveTab('qa')}
+                                    className={`flex items-center px-6 py-2.5 rounded-lg text-sm font-bold transition-all whitespace-nowrap ${activeTab === 'qa' ? 'bg-deep-navy text-white shadow-md' : 'text-gray-600 hover:bg-gray-50'}`}
+                                >
+                                    <HelpCircle className="w-4 h-4 mr-2" /> Q&A
+                                </button>
+                                <button
+                                    onClick={() => setActiveTab('poll')}
+                                    className={`flex items-center px-6 py-2.5 rounded-lg text-sm font-bold transition-all whitespace-nowrap ${activeTab === 'poll' ? 'bg-vedic-blue text-white shadow-md' : 'text-gray-600 hover:bg-gray-50'}`}
+                                >
+                                    <BarChart2 className="w-4 h-4 mr-2" /> Poll
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* Content Area */}
+                        <div className="grid lg:grid-cols-1 gap-8 max-w-4xl mx-auto">
+
+                            {/* QUIZ SECTION */}
+                            {activeTab === 'quiz' && (
+                                <div className="animate-fade-in">
+                                    <div className="flex flex-wrap justify-center gap-4 mb-6">
+                                        <button
+                                            onClick={() => setActiveQuizTopic('aiml')}
+                                            className={`px-4 py-1.5 rounded-full text-sm font-semibold border transition-colors ${activeQuizTopic === 'aiml' ? 'bg-white border-amber-500 text-amber-700 shadow-sm' : 'border-transparent text-gray-500 hover:bg-gray-200'}`}
+                                        >
+                                            AI/ML Basics
+                                        </button>
+                                        <button
+                                            onClick={() => setActiveQuizTopic('genai')}
+                                            className={`px-4 py-1.5 rounded-full text-sm font-semibold border transition-colors ${activeQuizTopic === 'genai' ? 'bg-white border-amber-500 text-amber-700 shadow-sm' : 'border-transparent text-gray-500 hover:bg-gray-200'}`}
+                                        >
+                                            GenAI Concepts
+                                        </button>
+                                        <button
+                                            onClick={() => setActiveQuizTopic('gita')}
+                                            className={`px-4 py-1.5 rounded-full text-sm font-semibold border transition-colors flex items-center gap-2 ${activeQuizTopic === 'gita' ? 'bg-white border-amber-500 text-amber-700 shadow-sm' : 'border-transparent text-gray-500 hover:bg-gray-200'}`}
+                                        >
+                                            <BookOpen className="w-3 h-3" /> Gītā Wisdom
+                                        </button>
+                                    </div>
+                                    <div className="h-[500px]">
+                                        <QuizCard topic={activeQuizTopic} data={QUIZ_DATA[activeQuizTopic]} />
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* Q&A SECTION */}
+                            {activeTab === 'qa' && (
+                                <div className="animate-fade-in h-[500px]">
+                                    <QAComponent />
+                                </div>
+                            )}
+
+                            {/* POLL SECTION */}
+                            {activeTab === 'poll' && (
+                                <div className="animate-fade-in h-[500px]">
+                                    <PollComponent />
+                                </div>
+                            )}
+
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        // 8. CapstonePreview
+        const CapstonePreview = () => {
+            return (
+                <section id={SectionId.PROJECTS} className="py-20 bg-deep-navy relative overflow-hidden">
+                    <div className="absolute inset-0 opacity-20">
+                        <img
+                            src="https://picsum.photos/id/1015/1600/900"
+                            alt="River background"
+                            className="w-full h-full object-cover grayscale"
+                        />
+                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-deep-navy via-deep-navy/90 to-transparent"></div>
+
+                    <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="grid md:grid-cols-2 gap-12 items-center">
+
+                            <div>
+                                <span className="text-vedic-gold font-bold tracking-widest uppercase mb-2 block">Capstone Highlight</span>
+                                <h2 className="text-4xl md:text-5xl font-display font-bold text-white mb-6">
+                                    Storytelling through GenAI
+                                </h2>
+                                <p className="text-gray-300 text-lg mb-8 leading-relaxed">
+                                    Synthesize your technical skills and spiritual understanding. You will use Generative AI tools to script, visualize, and animate scenes from the profound life of <span className="text-vedic-gold font-semibold">Śrī Raghunāth Dās Goswāmī</span>.
+                                </p>
+
+                                <ul className="space-y-4 mb-8">
+                                    <li className="flex items-center text-gray-300">
+                                        <span className="w-2 h-2 bg-vedic-gold rounded-full mr-3"></span>
+                                        Scripting with LLMs
+                                    </li>
+                                    <li className="flex items-center text-gray-300">
+                                        <span className="w-2 h-2 bg-vedic-gold rounded-full mr-3"></span>
+                                        Image Generation (Stable Diffusion/Midjourney)
+                                    </li>
+                                    <li className="flex items-center text-gray-300">
+                                        <span className="w-2 h-2 bg-vedic-gold rounded-full mr-3"></span>
+                                        Video Synthesis & Editing
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div className="relative">
+                                <div className="aspect-video bg-black/50 rounded-lg border border-gray-700 shadow-2xl flex items-center justify-center group cursor-pointer backdrop-blur-sm hover:border-vedic-gold transition-colors">
+                                    <div className="absolute inset-0 bg-gradient-to-br from-vedic-blue/20 to-purple-500/20 rounded-lg"></div>
+                                    <div className="w-20 h-20 bg-vedic-gold rounded-full flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform">
+                                        <Play className="w-8 h-8 text-deep-navy ml-1" fill="currentColor" />
+                                    </div>
+                                    <span className="absolute bottom-4 text-sm text-gray-400 font-mono">Project Preview</span>
+                                </div>
+
+                                <div className="absolute -top-6 -right-6 bg-white/10 backdrop-blur-md p-4 rounded-lg border border-white/20 shadow-xl hidden md:block">
+                                    <span className="text-xs font-mono text-vedic-gold block mb-1">Tools Used</span>
+                                    <div className="flex gap-2 text-white font-bold text-sm">
+                                        <span>RunwayML</span> • <span>Pika</span> • <span>Gemini</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        // 9. ValueProposition
+        const ValueProposition = () => {
+            return (
+                <section className="py-20 bg-slate-50">
+                    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
+                            <div className="p-8 md:p-12 text-center">
+                                <h2 className="text-3xl font-display font-bold text-deep-navy mb-6">WHY JOIN?</h2>
+                                <p className="text-xl text-gray-600 mb-10 font-serif italic">
+                                    "Harmonize spiritual growth with modern technological skill-building."
+                                </p>
+
+                                <div className="grid md:grid-cols-3 gap-8">
+                                    <div className="flex flex-col items-center">
+                                        <div className="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mb-4 text-vedic-blue">
+                                            <Code className="w-8 h-8" />
+                                        </div>
+                                        <h3 className="font-bold text-deep-navy mb-2">Skill Up</h3>
+                                        <p className="text-sm text-gray-500">Gain resume-ready AI/ML skills and project experience.</p>
+                                    </div>
+
+                                    <div className="flex flex-col items-center">
+                                        <div className="w-16 h-16 bg-amber-50 rounded-full flex items-center justify-center mb-4 text-vedic-gold">
+                                            <Star className="w-8 h-8" />
+                                        </div>
+                                        <h3 className="font-bold text-deep-navy mb-2">Grow Within</h3>
+                                        <p className="text-sm text-gray-500">Cultivate character through knowledge & chanting.</p>
+                                    </div>
+
+                                    <div className="flex flex-col items-center">
+                                        <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mb-4 text-green-600">
+                                            <Heart className="w-8 h-8" />
+                                        </div>
+                                        <h3 className="font-bold text-deep-navy mb-2">Serve</h3>
+                                        <p className="text-sm text-gray-500">Engage your unique talents directly in Krishna's service.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="bg-gray-50 p-6 text-center border-t border-gray-100">
+                                <p className="text-gray-500 text-sm">
+                                    Limited seats available for Y25 Batch
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        // 10. Footer
+        const Footer = () => {
+            return (
+                <footer id={SectionId.REGISTER} className="bg-deep-navy text-white pt-20 pb-10">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+                        <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
+                            <div className="text-center md:text-left">
+                                <h2 className="text-4xl font-display font-bold text-vedic-gold mb-4">Ready to Evolve?</h2>
+                                <p className="text-gray-300 text-lg mb-6">
+                                    Don't miss this opportunity to bridge the gap between ancient wisdom and future tech.
+                                </p>
+                                <div className="space-y-2">
+                                    <p className="text-xl font-semibold"><span className="text-vedic-gold">Dates:</span> 28th Nov – 20th Dec</p>
+                                    <p className="text-gray-400">Venue: IIT Kanpur Campus</p>
+                                </div>
+                            </div>
+
+                            <div className="bg-white/5 backdrop-blur-sm p-8 rounded-2xl border border-white/10 text-center">
+                                <h3 className="text-2xl font-bold mb-6">Registration Closing Soon</h3>
+
+                                <div className="w-48 h-48 bg-white mx-auto mb-6 rounded-lg flex items-center justify-center shadow-lg">
+                                    <img src="./assets/QR_Code.png" alt="QR Code" className="w-full h-full" />
+                                    {/* <span className="text-deep-navy font-bold text-center px-4">SCAN TO<br />REGISTER</span> */}
+                                </div>
+
+                                <button className="w-full py-4 bg-vedic-gold hover:bg-amber-500 text-deep-navy font-bold rounded-lg transition-colors flex items-center justify-center gap-2">
+                                    Register Now <ExternalLink className="w-4 h-4" />
+                                </button>
+                            </div>
+                        </div>
+
+                        <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
+                            <div className="mb-4 md:mb-0">
+                                <span className="font-semibold text-gray-400">Organized by Bhaktivedanta Club, IIT Kanpur</span>
+                            </div>
+                            <div className="flex space-x-6">
+                                <a href="#" className="hover:text-vedic-gold transition-colors flex items-center gap-1">
+                                    <Mail className="w-4 h-4" /> Contact Us
+                                </a>
+                                <a href="#" className="hover:text-vedic-gold transition-colors flex items-center gap-1">
+                                    <Phone className="w-4 h-4" /> Support
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            );
+        };
+
+        // --- APP ---
+        const App = () => {
+            const [isLoaded, setIsLoaded] = useState(false);
+
+            useEffect(() => {
+                setIsLoaded(true);
+            }, []);
+
+            return (
+                <div className={`min-h-screen text-slate-800 selection:bg-vedic-gold selection:text-white transition-opacity duration-700 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
+                    <ScrollProgress />
+                    <Navbar />
+                    <main>
+                        <Hero />
+                        <Philosophy />
+                        <CurriculumSplit />
+                        <InteractiveLearning />
+                        <CapstonePreview />
+                        <ValueProposition />
+                    </main>
+                    <Footer />
+                </div>
+            );
+        };
+
+        const rootElement = document.getElementById('root');
+        const root = ReactDOM.createRoot(rootElement);
+        root.render(
+            <React.StrictMode>
+                <App />
+            </React.StrictMode>
+        );
+    </script>
+</body>
+
+</html>
